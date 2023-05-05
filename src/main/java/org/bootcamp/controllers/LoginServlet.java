@@ -58,7 +58,8 @@ public class LoginServlet extends HttpServlet {
 
             resp.sendRedirect(req.getContextPath() + "/login");
         }else {
-            resp.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Lo sentimos no esta autorizado para ingresar a esta pagina!");
+            resp.sendRedirect(req.getContextPath() + "/login");
+            //resp.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Lo sentimos no esta autorizado para ingresar a esta pagina!");
         }
     }
 }
