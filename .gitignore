@@ -24,3 +24,5 @@ hs_err_pid*
 replay_pid*
 
 .idea/
+
+target/maven-status/maven-compiler-plugin/compile/default-compile/
