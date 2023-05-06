@@ -9,12 +9,11 @@ import org.bootcamp.models.Usuario;
 import org.bootcamp.repositories.UsuarioRepositoryJdbcImpl;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.List;
 
 @WebServlet("/listarusuarios")
-public class ListarUsuarios extends HttpServlet {
+public class ListarUsuariosServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         UsuarioRepositoryJdbcImpl repository = new UsuarioRepositoryJdbcImpl();
