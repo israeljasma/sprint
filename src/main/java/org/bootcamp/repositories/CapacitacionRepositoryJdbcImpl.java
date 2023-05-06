@@ -35,7 +35,7 @@ public class CapacitacionRepositoryJdbcImpl implements Repository{
         capacitacion.setHora(LocalTime.parse(resultSet.getString("hora")));
         capacitacion.setLugar(resultSet.getString("lugar"));
         capacitacion.setDuracion(resultSet.getInt("duracion"));
-        capacitacion.setDuracion(resultSet.getInt("cantidad"));
+        capacitacion.setCantidad(resultSet.getInt("cantidad"));
         return capacitacion;
     }
 }
