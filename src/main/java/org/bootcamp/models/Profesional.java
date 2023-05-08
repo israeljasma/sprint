@@ -10,14 +10,14 @@ public class Profesional extends Usuario {
         super();
     }
 
-    public Profesional(String username, String nombres, String apellidos, Date fechaNacimiento, String rut, String password, String titulo, String fechaIngreso) {
-        super(username, nombres, apellidos, fechaNacimiento, rut, password);
+    public Profesional(String username, String nombres, String apellidos, Date fechaNacimiento, String rut, int rol, String password, String titulo, String fechaIngreso) {
+        super(username, nombres, apellidos, fechaNacimiento, rut, rol, password);
         this.titulo = titulo;
         this.fechaIngreso = fechaIngreso;
     }
 
-    public Profesional(int id, String username, String nombres, String apellidos, Date fechaNacimiento, String rut, String password, String titulo, String fechaIngreso) {
-        super(id, username, nombres, apellidos, fechaNacimiento, rut, password);
+    public Profesional(int id, String username, String nombres, String apellidos, Date fechaNacimiento, String rut, int rol, String password, String titulo, String fechaIngreso) {
+        super(id, username, nombres, apellidos, fechaNacimiento, rut, rol, password);
         this.titulo = titulo;
         this.fechaIngreso = fechaIngreso;
     }

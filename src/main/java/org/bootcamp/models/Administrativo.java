@@ -10,14 +10,14 @@ public class Administrativo extends Usuario{
         super();
     }
 
-    public Administrativo(String username, String nombres, String apellidos, Date fechaNacimiento, String rut, String password, String area, String experiencia) {
-        super(username, nombres, apellidos, fechaNacimiento, rut, password);
+    public Administrativo(String username, String nombres, String apellidos, Date fechaNacimiento, String rut, int rol, String password, String area, String experiencia) {
+        super(username, nombres, apellidos, fechaNacimiento, rut, rol, password);
         this.area = area;
         this.experiencia = experiencia;
     }
 
-    public Administrativo(int id, String username, String nombres, String apellidos, Date fechaNacimiento, String rut, String password, String area, String experiencia) {
-        super(id, username, nombres, apellidos, fechaNacimiento, rut, password);
+    public Administrativo(int id, String username, String nombres, String apellidos, Date fechaNacimiento, String rut, int rol, String password, String area, String experiencia) {
+        super(id, username, nombres, apellidos, fechaNacimiento, rut, rol, password);
         this.area = area;
         this.experiencia = experiencia;
     }

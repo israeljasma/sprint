@@ -17,8 +17,8 @@ public class Cliente extends Usuario {
         this.capacitaciones = new ArrayList<>();
     }
 
-    public Cliente(String username, String nombres, String apellidos, Date fechaNacimiento, String rut, String password, int telefono, String afp, int sistemaSalud, String direccion, String comuna, int edad) {
-        super(username, nombres, apellidos, fechaNacimiento, rut, password);
+    public Cliente(String username, String nombres, String apellidos, Date fechaNacimiento, String rut, int rol, String password, int telefono, String afp, int sistemaSalud, String direccion, String comuna, int edad) {
+        super(username, nombres, apellidos, fechaNacimiento, rut, rol, password);
         this.telefono = telefono;
         this.afp = afp;
         this.sistemaSalud = sistemaSalud;
@@ -28,8 +28,8 @@ public class Cliente extends Usuario {
         this.capacitaciones = new ArrayList<>();
     }
 
-    public Cliente(int id, String username, String nombres, String apellidos, Date fechaNacimiento, String rut, String password, int telefono, String afp, int sistemaSalud, String direccion, String comuna, int edad) {
-        super(id, username, nombres, apellidos, fechaNacimiento, rut, password);
+    public Cliente(int id, String username, String nombres, String apellidos, Date fechaNacimiento, String rut, int rol, String password, int telefono, String afp, int sistemaSalud, String direccion, String comuna, int edad) {
+        super(id, username, nombres, apellidos, fechaNacimiento, rut, rol, password);
         this.telefono = telefono;
         this.afp = afp;
         this.sistemaSalud = sistemaSalud;
