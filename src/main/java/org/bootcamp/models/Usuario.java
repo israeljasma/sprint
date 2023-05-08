@@ -10,27 +10,30 @@ public class Usuario {
     private String apellidos;
     private Date fechaNacimiento;
     private String rut;
+    private int rol;
     private String password;
 
     public Usuario() {
     }
 
-    public Usuario(String username, String nombres, String apellidos, Date fechaNacimiento, String rut, String password) {
+    public Usuario(String username, String nombres, String apellidos, Date fechaNacimiento, String rut, int rol, String password) {
         this.username = username;
         this.nombres = nombres;
         this.apellidos = apellidos;
         this.fechaNacimiento = fechaNacimiento;
         this.rut = rut;
+        this.rol = rol;
         this.password = password;
     }
 
-    public Usuario(int id, String username, String nombres, String apellidos, Date fechaNacimiento, String rut, String password) {
+    public Usuario(int id, String username, String nombres, String apellidos, Date fechaNacimiento, String rut, int rol, String password) {
         this.id = id;
         this.username = username;
         this.nombres = nombres;
         this.apellidos = apellidos;
         this.fechaNacimiento = fechaNacimiento;
         this.rut = rut;
+        this.rol = rol;
         this.password = password;
     }
 
@@ -80,6 +83,14 @@ public class Usuario {
 
     public void setRut(String rut) {
         this.rut = rut;
+    }
+
+    public int getRol() {
+        return rol;
+    }
+
+    public void setRol(int rol) {
+        this.rol = rol;
     }
 
     public String getPassword() {
