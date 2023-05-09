@@ -2,15 +2,16 @@ package org.bootcamp.services;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+import org.bootcamp.models.Usuario;
 
 import java.util.Optional;
 
 public class LoginServiceImpl implements LoginService {
 
     @Override
-    public Optional<String> getUsername(HttpServletRequest request) {
+    public Optional<Usuario> getUsername(HttpServletRequest request) {
         HttpSession session = request.getSession();
-        String username = (String) session.getAttribute("username");
+        Usuario username = (Usuario) session.getAttribute("user");
         if (username != null){
             return Optional.of(username);
         }
