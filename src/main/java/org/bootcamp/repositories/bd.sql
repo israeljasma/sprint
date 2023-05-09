@@ -12,6 +12,24 @@ VALUES ('administrador', 'Rol con permisos de administrador', true, true, true),
        ('cliente', 'Rol para usuarios clientes', true, false, false),
        ('profesional', 'Rol para usuarios profesionales', true, true, false);
 
+CREATE TABLE usuarios (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  username VARCHAR(255) NOT NULL,
+  nombres VARCHAR(255) NOT NULL,
+  apellidos VARCHAR(255) NOT NULL,
+  fecha_nacimiento DATE NOT NULL,
+  rut VARCHAR(255) NOT NULL,
+  rol INT NOT NULL,
+  password VARCHAR(255) NOT NULL,
+  FOREIGN KEY (rol) REFERENCES roles(id)
+);
+
+INSERT INTO usuarios (username, nombres, apellidos, fecha_nacimiento, rut, rol, password)
+VALUES ('doravan', 'doravan', 'doravan', '1994-01-01', '12345678-9', 1, '1234'),
+('marito', 'mario', 'morales', '1994-01-01', '12345678-9', 1, '1234'),
+('blas', 'blas', 'blas', '1994-01-01', '12345678-9', 1, '1234'),
+('andre', 'andre', 'andre', '1994-01-01', '12345678-9', 1, '1234');
+
 CREATE TABLE capacitaciones (
     id INT NOT NULL AUTO_INCREMENT,
     rut_cliente VARCHAR(20) NOT NULL,
