@@ -6,5 +6,5 @@ import org.bootcamp.models.Usuario;
 import java.util.Optional;
 
 public interface LoginService {
-    Optional<Usuario> getUsername(HttpServletRequest request);
+    Optional<Usuario> getUser(HttpServletRequest request);
 }

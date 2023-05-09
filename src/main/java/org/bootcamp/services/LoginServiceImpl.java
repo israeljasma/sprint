@@ -9,7 +9,7 @@ import java.util.Optional;
 public class LoginServiceImpl implements LoginService {
 
     @Override
-    public Optional<Usuario> getUsername(HttpServletRequest request) {
+    public Optional<Usuario> getUser(HttpServletRequest request) {
         HttpSession session = request.getSession();
         Usuario username = (Usuario) session.getAttribute("user");
         if (username != null){

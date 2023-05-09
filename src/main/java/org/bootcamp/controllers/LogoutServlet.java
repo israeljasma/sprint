@@ -17,7 +17,7 @@ import java.util.Optional;
 public class LogoutServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         LoginService auth = new LoginServiceImpl();
-        Optional<Usuario> user = auth.getUsername(req);
+        Optional<Usuario> user = auth.getUser(req);
         if (user.isPresent()){
             HttpSession session = req.getSession();
             session.invalidate();
