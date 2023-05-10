@@ -12,8 +12,8 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
-@WebServlet("/listarusuarios")
-public class ListarUsuariosServlet extends HttpServlet {
+@WebServlet("/usuarios")
+public class usuariosServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         UsuarioRepositoryJdbcImpl repository = new UsuarioRepositoryJdbcImpl();

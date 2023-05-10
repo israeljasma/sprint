@@ -12,8 +12,8 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
-@WebServlet("/listarcapacitaciones")
-public class ListarCapacitacionesServlet extends HttpServlet {
+@WebServlet("/capacitaciones")
+public class CapacitacionesServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         CapacitacionRepositoryJdbcImpl repository = new CapacitacionRepositoryJdbcImpl();
