@@ -53,6 +53,15 @@ public class UsuarioRepositoryJdbcImpl implements Repository{
         return usuarios;
     }
 
+    public void delete(int id) throws SQLException{
+        String sql = "delete from usuarios where id=?";
+        try(Connection connection = DatabaseConnection.getConnection()){
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setInt(1,id);
+            statement.executeUpdate();
+        }
+    }
+
     private static Usuario getUsuario(ResultSet resultSet) throws SQLException {
         Usuario usuario = new Usuario();
         usuario.setId(resultSet.getInt("id"));

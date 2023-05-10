@@ -27,6 +27,16 @@ public class CapacitacionRepositoryJdbcImpl implements Repository{
         return capacitaciones;
     }
 
+    @Override
+    public void delete(int id) throws SQLException {
+        String sql = "delete from capacitaciones where id=?";
+        try(Connection connection = DatabaseConnection.getConnection()){
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setInt(1,id);
+            statement.executeUpdate();
+        }
+    }
+
     private static Capacitacion getCapacitacion(ResultSet resultSet) throws SQLException {
         Capacitacion capacitacion = new Capacitacion();
         capacitacion.setId(resultSet.getInt("id"));

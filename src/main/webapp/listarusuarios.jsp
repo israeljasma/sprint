@@ -23,6 +23,7 @@ List<Usuario> usuarios = (List<Usuario>)request.getAttribute("usuarios");
                 <th>Nombres</th>
                 <th>Apellidos</th>
                 <th>Fecha de Nacimiento</th>
+                <th>Acciones</th>
             </tr>
             </thead>
             <tbody>
@@ -35,6 +36,10 @@ List<Usuario> usuarios = (List<Usuario>)request.getAttribute("usuarios");
                     <td><%=user.getNombres()%></td>
                     <td><%=user.getApellidos()%></td>
                     <td><%=user.getFechaNacimiento()%></td>
+                    <td>
+                        <a href="/usuarios/editar/id=<%=user.getId()%>" class="btn btn-primary">Editar</a>
+                        <a onclick="return confirm('¿Está seguro de que desea eliminar?');" href="/sprint/usuarios/eliminar?id=<%=user.getId()%>" class="btn btn-danger">Eliminar</a>
+                    </td>
                 </tr>
             <%}%>
 
