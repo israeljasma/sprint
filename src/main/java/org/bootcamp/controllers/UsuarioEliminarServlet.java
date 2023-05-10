@@ -30,6 +30,6 @@ public class UsuarioEliminarServlet extends HttpServlet {
                 throw new RuntimeException(e);
             }
         }
-        resp.sendRedirect(req.getContextPath()+ "/listarusuarios");
+        resp.sendRedirect(req.getContextPath()+ "/usuarios");
     }
 }
