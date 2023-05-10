@@ -12,7 +12,7 @@
         <a class="nav-link" href="/sprint">Inicio</a>
       </li>
       <li class="nav-item active">
-        <a class="nav-link" href="/sprint/listarusuarios">Usuarios</a>
+        <a class="nav-link" href="/sprint/usuarios">Usuarios</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="/sprint/logout">Logout</a>
