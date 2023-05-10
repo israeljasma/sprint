@@ -29,7 +29,6 @@ public class LoginServlet extends HttpServlet {
         Optional<Usuario> userOptional = auth.getUser(req);
 
         List<Rol> roles;
-        Rol rol = null;
 
         try {
             roles = rolRepository.listar();
@@ -38,16 +37,23 @@ public class LoginServlet extends HttpServlet {
         }
 
         if (userOptional.isPresent()){
-            /*
+            Rol rol = null;
             for (Rol getRol: roles){
-                if (getRol.getId() == user.getRol()){
-                    rol = getRol;
-                }else {
+                if (getRol.getId() == userOptional.get().getRol()){
                     rol = new Rol();
+                    rol.setId(getRol.getId());
+                    rol.setNombre(getRol.getNombre());
+                    break;
                 }
             }
-             */
-            resp.sendRedirect(req.getContextPath() + "/dashboard");
+
+            if (rol.getNombre().equals("administrador")){
+                resp.sendRedirect(req.getContextPath() + "/dashboard");
+            }else if(rol.getNombre().equals("profesional")){
+                resp.sendRedirect(req.getContextPath() + "/dashboard");
+            }else {
+                resp.sendRedirect(req.getContextPath() + "/contacto");
+            }
         }else {
             getServletContext().getRequestDispatcher("/login.html").forward(req,resp);
         }
@@ -56,10 +62,18 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         UsuarioRepositoryJdbcImpl repository = new UsuarioRepositoryJdbcImpl();
+        RolRepositoryJdbcImpl rolRepository = new RolRepositoryJdbcImpl();
+        List<Rol> roles;
         Usuario user;
 
         String username = req.getParameter("username");
         String password = req.getParameter("password");
+
+        try {
+            roles = rolRepository.listar();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
 
         try {
             user = repository.loginUser(username,password);
@@ -67,7 +81,20 @@ public class LoginServlet extends HttpServlet {
                 HttpSession session = req.getSession();
                 session.setAttribute("user", user);
 
-                resp.sendRedirect(req.getContextPath() + "/dashboard");
+                Rol rol = null;
+                for (Rol getRol: roles){
+                    if (getRol.getId() == user.getRol()){
+                        rol = new Rol();
+                        rol.setId(getRol.getId());
+                        rol.setNombre(getRol.getNombre());
+                        break;
+                    }
+                }
+                if (rol.getNombre().equals("administrador")){
+                    resp.sendRedirect(req.getContextPath() + "/dashboard");
+                }else {
+                    resp.sendRedirect(req.getContextPath() + "/contacto");
+                }
             }else {
                 resp.sendRedirect(req.getContextPath() + "/login");
             }
