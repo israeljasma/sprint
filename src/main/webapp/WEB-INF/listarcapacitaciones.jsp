@@ -41,7 +41,7 @@ List<Capacitacion> capacitaciones = (List<Capacitacion>)request.getAttribute("ca
                     <td><%=listCapacitacion.getDuracion()%></td>
                     <td><%=listCapacitacion.getCantidad()%></td>
                     <td>
-                        <a href="/sprint/capacitaciones/editar/id=<%=listCapacitacion.getId()%>" class="btn btn-primary">Editar</a>
+                        <a href="/sprint/capacitaciones/editar?id=<%=listCapacitacion.getId()%>" class="btn btn-primary">Editar</a>
                         <a onclick="return confirm('¿Está seguro de que desea eliminar?');" href="/sprint/capacitaciones/eliminar?id=<%=listCapacitacion.getId()%>" class="btn btn-danger">Eliminar</a>
                     </td>
                 </tr>
