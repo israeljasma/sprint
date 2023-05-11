@@ -49,5 +49,8 @@ List<Capacitacion> capacitaciones = (List<Capacitacion>)request.getAttribute("ca
             </tbody>
         </table>
     </div>
+    <footer>
+        <%@ include file="/WEB-INF/includes/footer.jsp" %>
+    </footer>
 </body>
 </html>
