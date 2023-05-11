@@ -55,7 +55,7 @@ public class LoginServlet extends HttpServlet {
                 resp.sendRedirect(req.getContextPath() + "/contacto");
             }
         }else {
-            getServletContext().getRequestDispatcher("/login.html").forward(req,resp);
+            getServletContext().getRequestDispatcher("/WEB-INF/login.html").forward(req,resp);
         }
     }
 

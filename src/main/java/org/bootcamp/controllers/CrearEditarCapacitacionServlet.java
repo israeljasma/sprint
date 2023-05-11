@@ -14,7 +14,7 @@ public class CrearEditarCapacitacionServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        getServletContext().getRequestDispatcher("/capacitacion.html").forward(req,resp);
+        getServletContext().getRequestDispatcher("/WEB-INF/capacitacion.html").forward(req,resp);
     }
 
     @Override

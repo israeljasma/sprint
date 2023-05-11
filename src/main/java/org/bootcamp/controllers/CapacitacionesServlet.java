@@ -27,6 +27,6 @@ public class CapacitacionesServlet extends HttpServlet {
         }
 
         req.setAttribute("capacitaciones", capacitaciones);
-        getServletContext().getRequestDispatcher("/listarcapacitaciones.jsp").forward(req,resp);
+        getServletContext().getRequestDispatcher("/WEB-INF/listarcapacitaciones.jsp").forward(req,resp);
     }
 }

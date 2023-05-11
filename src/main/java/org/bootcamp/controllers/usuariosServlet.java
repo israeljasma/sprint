@@ -53,7 +53,7 @@ public class usuariosServlet extends HttpServlet {
                 }
 
                 req.setAttribute("usuarios", usuarios);
-                getServletContext().getRequestDispatcher("/listarusuarios.jsp").forward(req, resp);
+                getServletContext().getRequestDispatcher("/WEB-INF/listarusuarios.jsp").forward(req, resp);
             }else {
                 resp.sendRedirect(req.getContextPath() + "/contacto");
             }

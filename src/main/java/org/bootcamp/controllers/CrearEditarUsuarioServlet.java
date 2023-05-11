@@ -45,7 +45,7 @@ public class CrearEditarUsuarioServlet extends HttpServlet {
                 }
             }
             if (rol.getNombre().equals("administrador")){
-                getServletContext().getRequestDispatcher("/usuario.html").forward(req, resp);
+                getServletContext().getRequestDispatcher("/WEB-INF/usuario.html").forward(req, resp);
             }else {
                 resp.sendRedirect(req.getContextPath() + "/login");
             }

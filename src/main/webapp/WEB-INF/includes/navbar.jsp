@@ -14,6 +14,9 @@
       <li class="nav-item active">
         <a class="nav-link" href="/sprint/usuarios">Usuarios</a>
       </li>
+      <li class="nav-item active">
+        <a class="nav-link" href="/sprint/capacitaciones">Usuarios</a>
+      </li>
       <li class="nav-item">
         <a class="nav-link" href="/sprint/logout">Logout</a>
       </li>

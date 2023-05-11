@@ -16,7 +16,7 @@ import java.sql.SQLException;
 public class ContactoServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        getServletContext().getRequestDispatcher("/contacto.html").forward(req,resp);
+        getServletContext().getRequestDispatcher("/WEB-INF/contacto.html").forward(req,resp);
     }
 
     @Override
