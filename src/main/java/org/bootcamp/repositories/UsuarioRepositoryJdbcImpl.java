@@ -39,6 +39,27 @@ public class UsuarioRepositoryJdbcImpl implements Repository{
         }
     }
 
+    public Usuario getById(int id){
+        Usuario usuario = new Usuario();
+        String sql = "SELECT * FROM usuarios WHERE id = ?";
+        try(Connection connection = DatabaseConnection.getConnection()) {
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setInt(1, id);
+            ResultSet resultSet = statement.executeQuery();
+            usuario.setId(resultSet.getInt("id"));
+            usuario.setUsername(resultSet.getString("username"));
+            usuario.setNombres(resultSet.getString("apellidos"));
+            usuario.setFechaNacimiento(resultSet.getDate("fecha_nacimiento"));
+            usuario.setRut(resultSet.getString("rut"));
+            usuario.setRol(resultSet.getInt("rol"));
+            usuario.setPassword(resultSet.getString("password"));
+            return usuario;
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public List<Usuario> listar() throws SQLException{
         List<Usuario> usuarios = new ArrayList<>();
         try(Connection connection = DatabaseConnection.getConnection()){
