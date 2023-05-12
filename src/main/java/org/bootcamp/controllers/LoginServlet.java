@@ -82,17 +82,16 @@ public class LoginServlet extends HttpServlet {
                 session.setAttribute("user", user);
 
                 Rol rol = null;
-                for (Rol getRol: roles){
-                    if (getRol.getId() == user.getRol()){
-                        rol = new Rol();
-                        rol.setId(getRol.getId());
-                        rol.setNombre(getRol.getNombre());
+                for (Rol getRol : roles) {
+                    if (getRol.getId() == user.getRol()) {
+                        rol = getRol;
                         break;
                     }
                 }
-                if (rol.getNombre().equals("administrador")){
+
+                if (rol != null && rol.getNombre().equals("administrador")) {
                     resp.sendRedirect(req.getContextPath() + "/dashboard");
-                }else {
+                } else {
                     resp.sendRedirect(req.getContextPath() + "/contacto");
                 }
             }else {
