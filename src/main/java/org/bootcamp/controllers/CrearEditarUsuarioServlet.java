@@ -8,6 +8,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import org.bootcamp.models.Rol;
 import org.bootcamp.models.Usuario;
 import org.bootcamp.repositories.RolRepositoryJdbcImpl;
+import org.bootcamp.repositories.UsuarioRepositoryJdbcImpl;
 import org.bootcamp.services.LoginService;
 import org.bootcamp.services.LoginServiceImpl;
 
@@ -18,12 +19,13 @@ import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Optional;
 
-@WebServlet("/usuarios/crear")
+@WebServlet({"/usuarios/agregar", "/usuarios/editar"})
 public class CrearEditarUsuarioServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         LoginService auth = new LoginServiceImpl();
         RolRepositoryJdbcImpl rolRepository = new RolRepositoryJdbcImpl();
+        UsuarioRepositoryJdbcImpl userRepository = new UsuarioRepositoryJdbcImpl();
         Optional<Usuario> userOptional = auth.getUser(req);
 
         List<Rol> roles;
@@ -44,8 +46,19 @@ public class CrearEditarUsuarioServlet extends HttpServlet {
                     break;
                 }
             }
+
             if (rol.getNombre().equals("administrador")){
-                getServletContext().getRequestDispatcher("/WEB-INF/usuario.html").forward(req, resp);
+                if ((req.getServletPath()).equals("/usuarios/editar")){
+                    try {
+                        Usuario getUserId = userRepository.getById(Integer.parseInt(req.getParameter("id")));
+                        req.setAttribute("getUserId", getUserId);
+                        getServletContext().getRequestDispatcher("/WEB-INF/usuario.jsp").forward(req, resp);
+                    }catch (NumberFormatException e){
+                        resp.sendRedirect(req.getContextPath() + "/usuarios");
+                    }
+                }else {
+                    getServletContext().getRequestDispatcher("/WEB-INF/usuario.jsp").forward(req, resp);
+                }
             }else {
                 resp.sendRedirect(req.getContextPath() + "/login");
             }
