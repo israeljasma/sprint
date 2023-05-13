@@ -51,7 +51,8 @@ public class UsuarioRepositoryJdbcImpl implements Repository{
                 usuario = new Usuario();
                 usuario.setId(resultSet.getInt("id"));
                 usuario.setUsername(resultSet.getString("username"));
-                usuario.setNombres(resultSet.getString("apellidos"));
+                usuario.setNombres(resultSet.getString("nombres"));
+                usuario.setApellidos(resultSet.getString("apellidos"));
                 usuario.setFechaNacimiento(resultSet.getDate("fecha_nacimiento"));
                 usuario.setRut(resultSet.getString("rut"));
                 usuario.setRol(resultSet.getInt("rol"));
