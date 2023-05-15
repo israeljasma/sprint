@@ -3,10 +3,7 @@ package org.bootcamp.repositories;
 import org.bootcamp.models.Usuario;
 import org.bootcamp.utils.DatabaseConnection;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -63,6 +60,39 @@ public class UsuarioRepositoryJdbcImpl implements Repository{
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        }
+    }
+
+    public void guardar(Usuario usuario) throws SQLException{
+        String sql;
+        if (usuario.getId() != 0 && usuario.getId() > 0){
+            sql = "UPDATE usuarios SET username = ?, " +
+                    "nombres = ?, " +
+                    "apellidos = ?, " +
+                    "fecha_nacimiento = ?, " +
+                    "rut = ?, " +
+                    "rol = ?, " +
+                    "password = ? " +
+                    "WHERE id = ?;";
+        }else {
+            sql = "INSERT INTO usuarios (username, nombres, apellidos, fecha_nacimiento, rut, rol, password) " +
+                    "VALUES (?, ?, ?, ?, ?, ?, ?)";
+        }
+
+        try(Connection connection = DatabaseConnection.getConnection()) {
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, usuario.getUsername());
+            statement.setString(2, usuario.getNombres());
+            statement.setString(3, usuario.getApellidos());
+            statement.setDate(4, (Date) usuario.getFechaNacimiento());
+            statement.setString(5, usuario.getRut());
+            statement.setInt(6, usuario.getRol());
+            statement.setString(7, usuario.getPassword());
+
+            if (usuario.getId() != 0 && usuario.getId() > 0){
+                statement.setInt(8, usuario.getId());
+            }
+            statement.executeUpdate();
         }
     }
 
