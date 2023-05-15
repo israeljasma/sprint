@@ -1,3 +1,4 @@
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <a class="navbar-brand" href="#">
     <img src="ruta/al/logo.png" width="30" height="30" class="d-inline-block align-top">
@@ -15,10 +16,20 @@
         <a class="nav-link" href="/sprint/usuarios">Usuarios</a>
       </li>
       <li class="nav-item active">
-        <a class="nav-link" href="/sprint/capacitaciones">Usuarios</a>
+        <a class="nav-link" href="/sprint/capacitaciones">Capacitaciones</a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/sprint/logout">Logout</a>
+    </ul>
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="usuarioLogueadoDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Usuario Logueado
+        </a>
+        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="usuarioLogueadoDropdown">
+          <a class="dropdown-item" href="#">Perfil</a>
+          <a class="dropdown-item" href="#">Configuración</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="/sprint/logout">Cerrar sesión</a>
+        </div>
       </li>
     </ul>
   </div>
