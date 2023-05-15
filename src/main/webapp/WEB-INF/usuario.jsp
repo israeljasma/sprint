@@ -1,7 +1,8 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@page import="org.bootcamp.models.Usuario"%>
+<%@page import="java.util.List"%>
+<%@page import="org.bootcamp.models.Rol"%>
 <%
-Usuario usuario2 = (Usuario)request.getAttribute("getUserId");
+List<Rol> roles = (List<Rol>)request.getAttribute("roles");
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -17,6 +18,13 @@ Usuario usuario2 = (Usuario)request.getAttribute("getUserId");
     <div class="container">
         <h2 class="text-center my-5">Crear usuario</h2>
         <form action="#" method="post">
+
+            <div class="form-group row my-3">
+                <label for="nombres" class="col-sm-2 col-form-label">Nombre de usuario:</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="username" name="username" placeholder="Ingrese el nombre de usuario" value="${getUserId.getUsername()}">
+                </div>
+            </div>
 
             <div class="form-group row my-3">
                 <label for="nombres" class="col-sm-2 col-form-label">Nombres:</label>
@@ -51,9 +59,9 @@ Usuario usuario2 = (Usuario)request.getAttribute("getUserId");
                 <div class="col-sm-10">
                     <select class="form-control" id="rol" name="rol" required>
                         <option SELECTED DISABLED>Selecione una opcion</option>
-                        <option value="administrador">Administrador</option>
-                        <option value="profesional">Profesional</option>
-                        <option value="cliente">Cliente</option>
+                        <% for (int i = 0; i < roles.size(); i++) { %>
+                            <option value="<%= roles.get(i).getId() %>"><%= roles.get(i).getNombre().substring(0,1).toUpperCase() + roles.get(i).getNombre().substring(1) %></option>
+                        <% } %>
                     </select>
                 </div>
             </div>
@@ -166,23 +174,23 @@ Usuario usuario2 = (Usuario)request.getAttribute("getUserId");
     var camposProfesional = document.getElementById("campos-profesional");
     var camposCliente = document.getElementById("campos-cliente");
 
+    var camposMap = {
+        "Administrador": camposAdministrador,
+        "Cliente": camposCliente,
+        "Profesional": camposProfesional
+    };
+
     rolUsuarioSelect.addEventListener("change", function() {
-        if (rolUsuarioSelect.value === "administrador") {
-        camposAdministrador.style.display = "block";
-        camposCliente.style.display = "none";
-        camposProfesional.style.display = "none";
-        } else if (rolUsuarioSelect.value === "cliente") {
-        camposAdministrador.style.display = "none";
-        camposCliente.style.display = "block";
-        camposProfesional.style.display = "none";
-        } else if (rolUsuarioSelect.value === "profesional") {
-        camposAdministrador.style.display = "none";
-        camposCliente.style.display = "none";
-        camposProfesional.style.display = "block";
-        } else {
+        var selectedOptionText = this.options[this.selectedIndex].text;
+
+        // Ocultar todos los campos
         camposAdministrador.style.display = "none";
         camposCliente.style.display = "none";
         camposProfesional.style.display = "none";
+
+        // Mostrar el campo correspondiente
+        if (selectedOptionText in camposMap) {
+            camposMap[selectedOptionText].style.display = "block";
         }
     });
     </script>
