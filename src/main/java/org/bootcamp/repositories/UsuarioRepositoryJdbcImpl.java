@@ -80,11 +80,12 @@ public class UsuarioRepositoryJdbcImpl implements Repository{
         }
 
         try(Connection connection = DatabaseConnection.getConnection()) {
+            java.sql.Date sqlFechaNacimiento = new java.sql.Date(usuario.getFechaNacimiento().getTime());
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setString(1, usuario.getUsername());
             statement.setString(2, usuario.getNombres());
             statement.setString(3, usuario.getApellidos());
-            statement.setDate(4, (Date) usuario.getFechaNacimiento());
+            statement.setDate(4, sqlFechaNacimiento);
             statement.setString(5, usuario.getRut());
             statement.setInt(6, usuario.getRol());
             statement.setString(7, usuario.getPassword());
