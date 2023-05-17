@@ -1,6 +1,10 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="java.util.List"%>
 <%@page import="org.bootcamp.models.Rol"%>
+<%@page import="org.bootcamp.models.Usuario"%>
+<%
+Usuario usuario = (Usuario)request.getAttribute("getUserId");
+%>
 <%
 List<Rol> roles = (List<Rol>)request.getAttribute("roles");
 %>
@@ -22,35 +26,35 @@ List<Rol> roles = (List<Rol>)request.getAttribute("roles");
             <div class="form-group row my-3">
                 <label for="nombres" class="col-sm-2 col-form-label">Nombre de usuario:</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="username" name="username" placeholder="Ingrese el nombre de usuario" value="${getUserId.getUsername()}">
+                    <input type="text" class="form-control" id="username" name="username" placeholder="Ingrese el nombre de usuario" value="<%=usuario.getUsername()%>">
                 </div>
             </div>
 
             <div class="form-group row my-3">
                 <label for="nombres" class="col-sm-2 col-form-label">Nombres:</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="nombres" name="nombres" placeholder="Ingrese los nombres" value="${getUserId.getNombres()}">
+                    <input type="text" class="form-control" id="nombres" name="nombres" placeholder="Ingrese los nombres" value="<%=usuario.getNombres()%>">
                 </div>
             </div>
 
             <div class="form-group row my-3">
                 <label for="apellidos" class="col-sm-2 col-form-label">Apellidos:</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="apellidos" name="apellidos" placeholder="Ingrese los apellidos" value="${getUserId.getApellidos()}">
+                    <input type="text" class="form-control" id="apellidos" name="apellidos" placeholder="Ingrese los apellidos" value="<%=usuario.getApellidos()%>">
                 </div>
             </div>
 
             <div class="form-group row my-3">
                 <label for="fechaNacimiento" class="col-sm-2 col-form-label">Fecha de Nacimiento:</label>
                 <div class="col-sm-10">
-                    <input type="date" class="form-control" id="fechaNacimiento" name="fechaNacimiento" value="${getUserId.getFechaNacimiento()}">
+                    <input type="date" class="form-control" id="fechaNacimiento" name="fechaNacimiento" value="<%=usuario.getFechaNacimiento()%>">
                 </div>
             </div>
 
             <div class="form-group row my-3">
                 <label for="rut" class="col-sm-2 col-form-label">RUT:</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="rut" placeholder="Ingrese el RUT" name="rut" value="${getUserId.getRut()}">
+                    <input type="text" class="form-control" id="rut" placeholder="Ingrese el RUT" name="rut" value="<%=usuario.getRut()%>">
                 </div>
             </div>
 
@@ -60,7 +64,9 @@ List<Rol> roles = (List<Rol>)request.getAttribute("roles");
                     <select class="form-control" id="rol" name="rol" required>
                         <option SELECTED DISABLED>Selecione una opcion</option>
                         <% for (int i = 0; i < roles.size(); i++) { %>
-                            <option value="<%= roles.get(i).getId() %>"><%= roles.get(i).getNombre().substring(0,1).toUpperCase() + roles.get(i).getNombre().substring(1) %></option>
+                            <option value="<%= roles.get(i).getId() %>" <%=(roles.get(i).getId() == usuario.getRol())?"selected":""%>>
+                                <%= roles.get(i).getNombre().substring(0, 1).toUpperCase() + roles.get(i).getNombre().substring(1) %>
+                            </option>
                         <% } %>
                     </select>
                 </div>
@@ -154,7 +160,7 @@ List<Rol> roles = (List<Rol>)request.getAttribute("roles");
             <div class="form-group row my-3">
                 <label for="password" class="col-sm-2 col-form-label">Contraseña:</label>
                 <div class="col-sm-10">
-                    <input type="password" class="form-control" id="password" placeholder="Ingrese su contraseña" name="password" value="${getUserId.getPassword()}">
+                    <input type="password" class="form-control" id="password" placeholder="Ingrese su contraseña" name="password" value="<%=usuario.getPassword()%>">
                 </div>
             </div>
 
@@ -169,30 +175,34 @@ List<Rol> roles = (List<Rol>)request.getAttribute("roles");
         <%@ include file="/WEB-INF/includes/footer.jsp" %>
     </footer>
     <script>
-    var rolUsuarioSelect = document.getElementById("rol");
-    var camposAdministrador = document.getElementById("campos-administrador");
-    var camposProfesional = document.getElementById("campos-profesional");
-    var camposCliente = document.getElementById("campos-cliente");
+        document.addEventListener("DOMContentLoaded", function() {
+        var rolUsuarioSelect = document.getElementById("rol");
+        var camposAdministrador = document.getElementById("campos-administrador");
+        var camposProfesional = document.getElementById("campos-profesional");
+        var camposCliente = document.getElementById("campos-cliente");
 
-    var camposMap = {
-        "Administrador": camposAdministrador,
-        "Cliente": camposCliente,
-        "Profesional": camposProfesional
-    };
+        var camposMap = {
+            "Administrador": camposAdministrador,
+            "Cliente": camposCliente,
+            "Profesional": camposProfesional
+        };
 
-    rolUsuarioSelect.addEventListener("change", function() {
-        var selectedOptionText = this.options[this.selectedIndex].text;
+        function mostrarCampos() {
+            var selectedOptionText = rolUsuarioSelect.options[rolUsuarioSelect.selectedIndex].text;
 
-        // Ocultar todos los campos
-        camposAdministrador.style.display = "none";
-        camposCliente.style.display = "none";
-        camposProfesional.style.display = "none";
+            camposAdministrador.style.display = "none";
+            camposCliente.style.display = "none";
+            camposProfesional.style.display = "none";
 
-        // Mostrar el campo correspondiente
-        if (selectedOptionText in camposMap) {
-            camposMap[selectedOptionText].style.display = "block";
+            if (selectedOptionText in camposMap) {
+                camposMap[selectedOptionText].style.display = "block";
+            }
         }
-    });
+
+        rolUsuarioSelect.addEventListener("change", mostrarCampos);
+        mostrarCampos();
+        });
     </script>
+
 </body>
 </html>
