@@ -37,8 +37,8 @@ List<Usuario> usuarios = (List<Usuario>)request.getAttribute("usuarios");
             <% for (Usuario user : usuarios) {%>
                 <tr>
                     <td><%=user.getId()%></td>
-                    <td><%=user.getRut()%></td>
                     <td><%=user.getUsername()%></td>
+                    <td><%=user.getRut()%></td>
                     <td><%=user.getNombres()%></td>
                     <td><%=user.getApellidos()%></td>
                     <td><%=user.getFechaNacimiento()%></td>
