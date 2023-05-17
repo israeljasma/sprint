@@ -14,7 +14,9 @@ import org.bootcamp.services.LoginServiceImpl;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Date;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Optional;
@@ -52,11 +54,13 @@ public class CrearEditarUsuarioServlet extends HttpServlet {
                     try {
                         Usuario getUserId = userRepository.getById(Integer.parseInt(req.getParameter("id")));
                         req.setAttribute("getUserId", getUserId);
+                        req.setAttribute("roles", roles);
                         getServletContext().getRequestDispatcher("/WEB-INF/usuario.jsp").forward(req, resp);
                     }catch (NumberFormatException e){
                         resp.sendRedirect(req.getContextPath() + "/usuarios");
                     }
                 }else {
+                    req.setAttribute("roles", roles);
                     getServletContext().getRequestDispatcher("/WEB-INF/usuario.jsp").forward(req, resp);
                 }
             }else {
@@ -69,16 +73,27 @@ public class CrearEditarUsuarioServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        LoginService auth = new LoginServiceImpl();
+        RolRepositoryJdbcImpl rolRepository = new RolRepositoryJdbcImpl();
+        UsuarioRepositoryJdbcImpl usuarioRepository = new UsuarioRepositoryJdbcImpl();
+        Optional<Usuario> userOptional = auth.getUser(req);
+        Usuario usuario;
+
+        String username = req.getParameter("username");
         String nombres = req.getParameter("nombres");
         String apellidos = req.getParameter("apellidos");
         String fechaNacimiento = req.getParameter("fechaNacimiento");
         String rut = req.getParameter("rut");
+        String rolId = req.getParameter("rol");
         String password = req.getParameter("password");
 
-        LoginService auth = new LoginServiceImpl();
-        RolRepositoryJdbcImpl rolRepository = new RolRepositoryJdbcImpl();
-        Optional<Usuario> userOptional = auth.getUser(req);
+        try {
+            usuario = new Usuario(username, nombres, apellidos, dateFormat.parse(fechaNacimiento), rut, Integer.parseInt(rolId), password);
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
+
 
         List<Rol> roles;
 
@@ -100,22 +115,12 @@ public class CrearEditarUsuarioServlet extends HttpServlet {
 
             if (rol.getNombre().equals("administrador")){
                 //Con permisos
-                PrintWriter out = resp.getWriter();
-
-                // Escribir en la respuesta HTTP al navegador
-                out.println("<html><body>");
-                out.println("<h1>" + nombres + "</h1>");
-                out.println("<h1>" + apellidos + "</h1>");
-                out.println("<h1>" + fechaNacimiento + "</h1>");
-                out.println("<h1>" + rut + "</h1>");
-                out.println("<h1>" + password + "</h1>");
-                // Escribir en la consola del navegador usando JavaScript
-                out.println("<script>");
-                out.println("console.log('Hola desde MiServlet!');");
-                out.println("</script>");
-
-                out.println("</body></html>");
-                //getServletContext().getRequestDispatcher("/usuarios/crear").forward(req,resp);
+                try {
+                    usuarioRepository.guardar(usuario);
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+                resp.sendRedirect(req.getContextPath()+ "/usuarios");
             }else {
                 //Sin permisos
                 resp.sendRedirect(req.getContextPath()+ "/login");
